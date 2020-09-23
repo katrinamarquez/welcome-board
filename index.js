@@ -42,6 +42,8 @@ function getBackgroundImage() {
 
   .catch(function(error) {
     console.log(error)
+    let photoUrl = "./img/beach.jpg"
+    document.getElementById('the_html').style.backgroundImage = "url(" + photoUrl + ")"
   });   
 
 }
@@ -53,7 +55,7 @@ function writeName() {
   let formContent = document.getElementById('nameForm');
 
   namePara.innerHTML = "Welcome "+ name.value;
-  // // remove form text input box after name is entered
+  // remove form text input box after name is entered
   formContent.innerHTML = "";
   // console.log(name.value)
   // let welcomeMessageDiv = document.getElementById("dynamicWelcomeMessage")
@@ -104,22 +106,22 @@ function writeName() {
 
 // }
 
-function getNews (){
+// function getNews (){
         
-  // alert(postcode.value)
-  console.log("inside news function")
+//   // alert(postcode.value)
+//   console.log("inside news function")
 
 
-  Papa.parse("http://newsapi.org/v2/top-headlines?country=au&apiKey=b4206a91352b415dbd530477c1c6c1ea", {
-      download: true,
-      header: true,
-      // not sure what header does but its required
-      complete: function (results) {
-        console.log(results)
-          }
-        })
+//   Papa.parse("http://newsapi.org/v2/top-headlines?country=au&apiKey=b4206a91352b415dbd530477c1c6c1ea", {
+//       download: true,
+//       header: true,
+//       // not sure what header does but its required
+//       complete: function (results) {
+//         console.log(results)
+//           }
+//         })
 
-            }
+//             }
 
 
 
@@ -133,6 +135,31 @@ function writeGoal(){
   goalForm.innerHTML = "";
 }
 
+function weatherBalloon(cityID) {
+  // get cityID dynamically somehow
+  // let cityID = 'https://api.openweathermap.org/data/2.5/weather?id=6167865&appid=a9e0348fc474f2a0b75e00ca777a4429'
+  let key = 'a9e0348fc474f2a0b75e00ca777a4429';
+  fetch('https://api.openweathermap.org/data/2.5/weather?id=' + cityID+ '&appid=' + key)  
+  .then(function(resp) { return resp.json() }) // Convert data to json
+  .then(function(data) {
+    drawWeather(data);
+  })
+  .catch(function() {
+    // catch any errors
+  });
+}
+
+function drawWeather( d ) {
+	var celcius = Math.round(parseFloat(d.main.temp)-273.15);
+	// var fahrenheit = Math.round(((parseFloat(d.main.temp)-273.15)*1.8)+32); 
+	
+	document.getElementById('description').innerHTML = d.weather[0].description;
+	document.getElementById('temp').innerHTML = celcius + '&deg;';
+	document.getElementById('location').innerHTML = d.name;
+}
+
+
+// city ID? make sure html elements referenced in funcs are correct - weatherDiv, html is index etc
 
 // do it all in one onload function in JS file
 // When the page is loaded/refreshed, calls all funcs
@@ -141,5 +168,6 @@ window.onload = function display () {
   showTime();
   getQuote();
   getBackgroundImage();
-  getNews();
+  // getNews();
+  weatherBalloon(2174003);
 }

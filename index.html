@@ -19,7 +19,9 @@
  
     <div class="wrapper">
       <div class="main-left">
-        <div class="weatherDiv">Weather Here</div>
+        <div id="description"></div>
+        <h1 id="temp"></h1>
+        <div id="location"></div>
       </div>
       <article class="content">
         <!-- main content here -->
@@ -28,6 +30,7 @@
             Welcome to MorningBoard
             </div>
           </h1>
+
           <h1>
           <div id="clockDisplay" class="time">
             <p id="test"></p>
@@ -37,14 +40,14 @@
             <p id="namePara"></p>
             <form id="nameForm">
               What is your name?<input type="text" id="nameText" /><br/>
-              <input type="button" value="Submit" onclick="writeName();" />
+              <input class="button" type="button" value="Submit" onclick="writeName();" />
             </form>
         </div>
         <div class = "goalDiv">
           <p id = "goalPara">
           <form id="goalForm">
             What's your main goal for today?<input type="text" id="goalText" /><br/>
-            <input type="button" value="Submit" onclick="writeGoal();" />
+            <input class="button" type="button" value="Submit" onclick="writeGoal();" />
           </form>
         </p>
         </div>
